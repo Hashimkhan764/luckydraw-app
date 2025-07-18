@@ -1,15 +1,20 @@
 "use client";
 
-import { supabase } from "./lib/supabaseClient";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Auth } from "@supabase/auth-ui-react";
+import { ThemeSupa } from "@supabase/auth-ui-shared";
+
+const supabase = createClientComponentClient();
 
 export default function Home() {
-  if (!supabase) {
-    return <div>⚠️ Supabase not configured properly</div>;
-  }
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>🎉 Welcome to LuckyDraw App</h1>
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <h1 className="text-4xl font-bold mb-8">🎉 Welcome to LuckyDraw App</h1>
+      <Auth
+        supabaseClient={supabase}
+        appearance={{ theme: ThemeSupa }}
+        providers={["github"]}
+      />
     </main>
   );
 }
